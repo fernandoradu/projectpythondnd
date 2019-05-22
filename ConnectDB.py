@@ -46,47 +46,42 @@ class ConnectDB(object):
 
     def setStringConnection(self,driver='none',server='none',database='none',user='none',password='none'):
 
-        if(driver == 'none' and self.driver != 'none'):
-            str_driver = self.driver
+        if ('none' in self.setStringConnection.__defaults__):
+            self.setDefaultStringConnection()
         else:
-            str_driver = driver
 
-        self.driver = str_driver
+            if(server == 'none' and self.server != 'none'):
+                str_server = self.server
+            else:
+                str_server = server
 
-        if(server == 'none' and self.server != 'none'):
-            str_server = self.server
-        else:
-            str_server = server
+            self.server = str_server
 
-        self.server = str_server
+            if(database == 'none' and self.database != 'none'):
+                str_database = self.database
+            else:
+                str_database = database
 
-        if(database == 'none' and self.database != 'none'):
-            str_database = self.database
-        else:
-            str_database = database
+            self.database = str_database
 
-        self.database = str_database
+            if (user == 'none' and self.user != 'none'):
+                str_user = self.user
+            else:
+                str_user = user
 
-        if (user == 'none' and self.user != 'none'):
-            str_user = self.user
-        else:
-            str_user = user
+            self.user = str_user
 
-        self.user = str_user
+            if (password == 'none' and self.password != 'none'):
+                str_pwd = self.password
+            else:
+                str_pwd = password
 
-        if (password == 'none' and self.password != 'none'):
-            str_pwd = self.password
-        else:
-            str_pwd = password
+            self.password = str_pwd
 
-        self.password = str_pwd
+        self.str_conn = 'DRIVER={' + self.driver + '};SERVER=' + self.server + ';DATABASE=' + self.database + \
+                        ';UID=' + self.user + ';PWD=' + self.password + ';'
 
-        stringConnection = 'DRIVER={' + str_driver + '};SERVER=' + str_server + ';DATABASE=' + str_database + \
-                            ';UID=' + str_user + ';PWD=' + str_pwd + ';'
-
-        self.str_conn = stringConnection
-
-        return stringConnection
+        return self.str_conn
 
     def hasError(self):
         return self.has_error
@@ -94,3 +89,13 @@ class ConnectDB(object):
     def clearErrors(self):
         self.has_error = False
         self.error_conn = ''
+
+    def setDefaultStringConnection(self):
+
+        self.driver = 'ODBC Driver 17 for SQL Server'
+        self.server = 'LAPTOP-QDSU82H0'
+        self.database = 'P12117MNTDB'
+        self.user = 'sa'
+        self.password = '123'
+
+ #self.setStringConnection.__code__.co_varnames
